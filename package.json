@@ -1,0 +1,28 @@
+{
+  "name": "trendshop",
+  "version": "1.0.0",
+  "description": "It is a classified website",
+  "main": "index.js",
+  "scripts": {
+  "start": "concurrently \"npm run server\" \"npm run client\"",
+  "server": "cd backend && npm start",
+  "client": "cd frontend && npm start",
+  "test": "echo \"Error: no test specified\" && exit 1"
+}
+,
+  "repository": {
+    "type": "git",
+    "url": "git+https://2sivasankar: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@github.com/2sivasankar/TrendShop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/2sivasankar/TrendShop/issues"
+  },
+  "homepage": "https://github.com/2sivasankar/TrendShop#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}

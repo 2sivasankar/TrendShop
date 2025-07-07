@@ -1,4 +1,7 @@
 const jwt=require('jsonwebtoken');
+const multer=require('multer');
+const path=require('path');
+
 const User=require('../models/User');
 
 const protect=async (req,res,next) =>{
@@ -25,4 +28,36 @@ const protect=async (req,res,next) =>{
         res.status(401).json({message:'Not authorized, No token'});
     }
 };
-module.exports=protect;
+
+
+//uploading imagaes
+const storage= multer.diskStorage({
+    destination(req,file,cb){
+        cb(null,'uploads/'); //folder to save images
+    },
+    filename(req,file,cb){
+        cb(null,`${Date.now()}-${file.originalname}`);
+    }
+});
+//file type checking
+const fileFilter=(req,file,cb)=>{
+    const allowedTypes=/jpeg|jpg|png|webp/;
+    const ext=path.extname(file.orignalname).toLowerCase();
+    const mime=file.mimetype;
+
+
+    if(allowedTypes.test(ext)  &&  allowedTypes.test(mime)){
+        cb(null,true);
+
+    }else{
+        cb(new Error('Only image files are uploaded',false));   //reject the file
+    }
+};
+
+const upload =multer({
+    storage,
+    limits:{fileSize:5*1024*1024},
+    fileFilter,
+});
+module.exports={protect};
+
